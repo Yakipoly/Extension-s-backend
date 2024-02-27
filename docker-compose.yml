@@ -1,0 +1,40 @@
+
+version: '3.8'
+x-common-variables: &common-variables
+  API_NAME              : "Апи для расширения"
+  API_URL               : "chrome_ext"
+ 
+  POSTGRES_USER         : "_"
+  POSTGRES_PASSWORD     : "-"
+  POSTGRES_DB           : "-"
+  POSTGRES_HOST         : "_"
+  TOKEN                 : "_"
+  TOKEN_PUBLIC          : "_"
+
+services:
+  server:
+    # Путь до Dockerfile
+    build: ./
+    # Имя для создаваемого контейнера
+    container_name: fastapi-rasshir
+    # Создание переменных окружения в контейнере
+    environment:
+      <<: *common-variables
+    # Перезапускаем сервис в случае падения 
+    restart: on-failure
+    # Прокладывам путь для файлов. Все файлы, которые хранятся у вас в 
+    # директории ./app, появятся в директории контейнера /app
+    volumes:
+      - ./app:/app
+    # Открываем порт в контейнер
+    # Порт, который будет смотреть наружу : порт который используется внутри контейнера
+    ports:
+      - "7015:7000"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+        reservations:
+          memory: 500M
+          
+            

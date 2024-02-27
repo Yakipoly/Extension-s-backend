@@ -1,0 +1,7 @@
+requests
+fastapi[all]
+psycopg2
+peewee
+python-dateutil
+setproctitle
+pydantic == 1.10.10
